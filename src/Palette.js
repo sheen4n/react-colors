@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
 import ColorBox from './ColorBox';
+import seedColors from './seedColors';
+import generatePalette from './utils/colorHelper';
+
 import './Palette.css';
 import Navbar from './Navbar';
+import { withRouter } from 'react-router-dom';
 
-const Palette = ({ palette, ...rest }) => {
+const Palette = ({ match }) => {
   const [level, setLevel] = useState(500);
   const [format, setFormat] = useState('hex');
+
+  const existingPalette = seedColors.find(p => p.id == match.params.id);
+
+  if (!existingPalette) return <div>Invalid Palette</div>;
+
+  const palette = generatePalette(existingPalette);
 
   const { colors, paletteName, emoji } = palette;
 
@@ -34,4 +44,4 @@ const Palette = ({ palette, ...rest }) => {
   );
 };
 
-export default Palette;
+export default withRouter(Palette);
