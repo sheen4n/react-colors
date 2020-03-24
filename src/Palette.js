@@ -7,7 +7,7 @@ const Palette = ({ palette, ...rest }) => {
   const [level, setLevel] = useState(500);
   const [format, setFormat] = useState('hex');
 
-  const { colors } = palette;
+  const { colors, paletteName, emoji } = palette;
 
   const changeLevel = newLevel => setLevel(newLevel);
 
@@ -26,7 +26,10 @@ const Palette = ({ palette, ...rest }) => {
           <ColorBox {...color} format={format} key={color.name} />
         ))}
       </div>
-      {/* footer */}
+      <footer className='Palette-footer'>
+        {paletteName}
+        <span className='emoji'>{emoji}</span>
+      </footer>
     </div>
   );
 };
