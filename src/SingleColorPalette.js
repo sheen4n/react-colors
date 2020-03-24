@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 import seedColors from './seedColors';
 import generatePalette from './utils/colorHelper';
@@ -18,10 +18,12 @@ const SingleColorPalette = ({ match }) => {
     )
   ];
 
-  const { colors: singlePaletteColors, emoji, paletteName } = generatePalette(
-    palette
-  );
-  console.log(generatePalette(palette));
+  const {
+    colors: singlePaletteColors,
+    emoji,
+    paletteName,
+    id: paletteId
+  } = generatePalette(palette);
 
   const colorArray = Object.keys(singlePaletteColors).map(
     k => singlePaletteColors[k][0]
@@ -30,12 +32,22 @@ const SingleColorPalette = ({ match }) => {
   const changeFormat = e => setFormat(e.target.value);
 
   return (
-    <div className='Palette'>
+    <div className='SingleColorPalette Palette'>
       <Navbar showSlider={false} format={format} changeFormat={changeFormat} />
       <div className='Palette-colors'>
-        {colorArray.map(c => (
-          <ColorBox {...c} showMore={false} format={format} />
+        {colorArray.map(color => (
+          <ColorBox
+            {...color}
+            showMore={false}
+            format={format}
+            key={color.name}
+          />
         ))}
+        <div className='go-back ColorBox'>
+          <Link to={`/palette/${paletteId}`} className='back-button'>
+            Go Back
+          </Link>
+        </div>
       </div>
       <PaletteFooter emoji={emoji} paletteName={paletteName} />
     </div>
