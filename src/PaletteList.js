@@ -2,6 +2,7 @@ import React from 'react';
 import seedColors from './seedColors';
 import MiniPalette from './MiniPalette';
 import { withStyles } from '@material-ui/styles';
+import { withRouter } from 'react-router-dom';
 
 const styles = {
   root: {
@@ -33,8 +34,10 @@ const styles = {
   }
 };
 
-const PaletteList = ({ classes }) => {
+const PaletteList = ({ classes, history }) => {
   const palettes = seedColors;
+
+  const goToPalette = id => () => history.push(`/palette/${id}`);
 
   return (
     <div className={classes.root}>
@@ -44,7 +47,7 @@ const PaletteList = ({ classes }) => {
         </nav>
         <div className={classes.palette}>
           {palettes.map(palette => (
-            <MiniPalette {...palette} />
+            <MiniPalette {...palette} goToPalette={goToPalette(palette.id)} />
           ))}
         </div>
       </div>
@@ -52,4 +55,4 @@ const PaletteList = ({ classes }) => {
   );
 };
 
-export default withStyles(styles)(PaletteList);
+export default withRouter(withStyles(styles)(PaletteList));

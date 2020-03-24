@@ -43,7 +43,7 @@ const styles = {
 
 const MiniPalette = ({ classes, ...palette }) => {
   return (
-    <div className={classes.root}>
+    <div className={classes.root} onClick={palette.goToPalette}>
       <div className={classes.colors}>
         {palette.colors.map(color => (
           <div
