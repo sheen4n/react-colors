@@ -3,6 +3,7 @@ import './App.css';
 import Palette from './Palette';
 import { Route, Switch } from 'react-router-dom';
 import PaletteList from './PaletteList';
+import SingleColorPalette from './SingleColorPalette';
 
 function App() {
   return (
@@ -10,6 +11,11 @@ function App() {
       <Switch>
         <Route exact path='/' render={() => <PaletteList />} />
         <Route exact path='/palette/:id' render={Palette} />
+        <Route
+          exact
+          path='/palette/:paletteId/:colorId'
+          render={SingleColorPalette}
+        />
       </Switch>
 
       {/* <div className='App'>
