@@ -1,18 +1,20 @@
 import React from 'react';
 import Slider from 'rc-slider';
+import Select from '@material-ui/core/Select';
 
 import 'rc-slider/assets/index.css';
 import './Navbar.css';
+import { MenuItem } from '@material-ui/core';
 
-const Navbar = ({ level, changeLevel }) => {
+const Navbar = ({ level, changeLevel, format, changeFormat }) => {
   return (
-    <header className="Navbar">
-      <div className="logo">
-        <a href="">ReactColorPicker</a>
+    <header className='Navbar'>
+      <div className='logo'>
+        <a href=''>ReactColorPicker</a>
       </div>
-      <div className="slider-container">
+      <div className='slider-container'>
         <span>Level : {level}</span>
-        <div className="slider">
+        <div className='slider'>
           <Slider
             defaultValue={level}
             min={100}
@@ -21,6 +23,13 @@ const Navbar = ({ level, changeLevel }) => {
             onAfterChange={changeLevel}
           />
         </div>
+      </div>
+      <div className='select-container'>
+        <Select onChange={changeFormat} value={format}>
+          <MenuItem value='hex'>HEX - #ffffff</MenuItem>
+          <MenuItem value='rgb'>RGB - rgb(255,255,255)</MenuItem>
+          <MenuItem value='rgba'>RGBA - rgba(255,255,255,1.0)</MenuItem>
+        </Select>
       </div>
     </header>
   );
