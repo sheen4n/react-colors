@@ -6,18 +6,18 @@ import generatePalette from './utils/colorHelper';
 import './Palette.css';
 import Navbar from './Navbar';
 import { withRouter } from 'react-router-dom';
+import PaletteFooter from './PaletteFooter';
 
 const Palette = ({ match }) => {
   const [level, setLevel] = useState(500);
   const [format, setFormat] = useState('hex');
 
-  const existingPalette = seedColors.find(p => p.id === match.params.id);
-
+  const existingPalette = [...seedColors].find(p => p.id === match.params.id);
   if (!existingPalette) return <div>Invalid Palette</div>;
 
   const palette = generatePalette(existingPalette);
 
-  const { colors, paletteName, emoji } = palette;
+  const { colors, paletteName, emoji, id: paletteId } = palette;
 
   const changeLevel = newLevel => setLevel(newLevel);
 
@@ -30,16 +30,20 @@ const Palette = ({ match }) => {
         changeLevel={changeLevel}
         format={format}
         changeFormat={changeFormat}
+        showSlider={true}
       />
       <div className='Palette-colors'>
         {colors[level].map(color => (
-          <ColorBox {...color} format={format} key={color.name} />
+          <ColorBox
+            {...color}
+            format={format}
+            key={color.name}
+            paletteId={paletteId}
+            showMore={true}
+          />
         ))}
       </div>
-      <footer className='Palette-footer'>
-        {paletteName}
-        <span className='emoji'>{emoji}</span>
-      </footer>
+      <PaletteFooter paletteName={paletteName} emoji={emoji} />
     </div>
   );
 };

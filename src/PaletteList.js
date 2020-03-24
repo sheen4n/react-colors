@@ -35,7 +35,7 @@ const styles = {
 };
 
 const PaletteList = ({ classes, history }) => {
-  const palettes = seedColors;
+  const palettes = [...seedColors];
 
   const goToPalette = id => () => history.push(`/palette/${id}`);
 

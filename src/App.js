@@ -9,18 +9,14 @@ function App() {
   return (
     <>
       <Switch>
-        <Route exact path='/' render={() => <PaletteList />} />
-        <Route exact path='/palette/:id' render={Palette} />
         <Route
           exact
           path='/palette/:paletteId/:colorId'
           render={SingleColorPalette}
         />
+        <Route exact path='/' render={() => <PaletteList />} />
+        <Route exact path='/palette/:id' render={Palette} />
       </Switch>
-
-      {/* <div className='App'>
-        <Palette palette={generatePalette(seedColors[4])} />
-      </div> */}
     </>
   );
 }
