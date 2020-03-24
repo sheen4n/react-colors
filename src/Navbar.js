@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Slider from 'rc-slider';
-import Select from '@material-ui/core/Select';
+import CloseIcon from '@material-ui/icons/Close';
 
 import 'rc-slider/assets/index.css';
 import './Navbar.css';
-import { MenuItem } from '@material-ui/core';
+import { MenuItem, IconButton, Snackbar, Select } from '@material-ui/core';
 
 const Navbar = ({ level, changeLevel, format, changeFormat }) => {
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+  const handleChangeSelect = e => {
+    changeFormat(e);
+    setSnackbarOpen(true);
+  };
+
   return (
     <header className='Navbar'>
       <div className='logo'>
@@ -25,12 +32,31 @@ const Navbar = ({ level, changeLevel, format, changeFormat }) => {
         </div>
       </div>
       <div className='select-container'>
-        <Select onChange={changeFormat} value={format}>
+        <Select onChange={handleChangeSelect} value={format}>
           <MenuItem value='hex'>HEX - #ffffff</MenuItem>
           <MenuItem value='rgb'>RGB - rgb(255,255,255)</MenuItem>
           <MenuItem value='rgba'>RGBA - rgba(255,255,255,1.0)</MenuItem>
         </Select>
       </div>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        message={
+          <span id='message-id'>Format Changed To {format.toUpperCase()}</span>
+        }
+        ContentProps={{ 'aria-describedby': 'message-id' }}
+        onClose={() => setSnackbarOpen(false)}
+        action={[
+          <IconButton
+            onClick={() => setSnackbarOpen(false)}
+            color='inherit'
+            key='close'
+          >
+            <CloseIcon />
+          </IconButton>
+        ]}
+      ></Snackbar>
     </header>
   );
 };
