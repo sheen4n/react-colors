@@ -5,6 +5,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import 'rc-slider/assets/index.css';
 import './Navbar.css';
 import { MenuItem, IconButton, Snackbar, Select } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const Navbar = ({ level, changeLevel, format, changeFormat }) => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -17,7 +18,7 @@ const Navbar = ({ level, changeLevel, format, changeFormat }) => {
   return (
     <header className='Navbar'>
       <div className='logo'>
-        <a href=''>ReactColorPicker</a>
+        <Link to='/'>ReactColorPicker</Link>
       </div>
       <div className='slider-container'>
         <span>Level : {level}</span>

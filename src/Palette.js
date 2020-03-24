@@ -11,7 +11,7 @@ const Palette = ({ match }) => {
   const [level, setLevel] = useState(500);
   const [format, setFormat] = useState('hex');
 
-  const existingPalette = seedColors.find(p => p.id == match.params.id);
+  const existingPalette = seedColors.find(p => p.id === match.params.id);
 
   if (!existingPalette) return <div>Invalid Palette</div>;
 
