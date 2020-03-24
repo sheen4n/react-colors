@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <Switch>
-        <Route exact path='/' render={PaletteList} />
+        <Route exact path='/' render={() => <PaletteList />} />
         <Route exact path='/palette/:id' render={Palette} />
       </Switch>
 
