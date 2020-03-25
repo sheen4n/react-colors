@@ -6,12 +6,14 @@ export default (reducer, actions, initialState) => {
   const Provider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const boundActions = Object.keys(actions).map(
-      key => (actions[key] = actions[key](dispatch))
-    );
+    const boundedActions = Object.keys(actions).reduce((result, key) => {
+      return { ...result, [key]: actions[key](dispatch) };
+    }, {});
+
+    console.log(boundedActions);
 
     return (
-      <Context.Provider value={{ state, ...boundActions }}>
+      <Context.Provider value={{ state, ...boundedActions }}>
         {children}
       </Context.Provider>
     );

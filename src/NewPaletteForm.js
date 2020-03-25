@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PaletteDrawer from './PaletteDrawer';
 import PaletteColorPicker from './PaletteColorPicker';
 import { withRouter } from 'react-router-dom';
@@ -10,7 +10,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import PaletteFormAppBar from './PaletteFormAppBar';
 import { Button } from '@material-ui/core';
 
+import { Context } from './context/PaletteContext';
+
 const NewPaletteForm = () => {
+  const { addPalette } = useContext(Context);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [newColor, setNewColor] = useState('teal');
   const [colors, setNewColors] = useState([]);
@@ -38,7 +41,12 @@ const NewPaletteForm = () => {
   };
 
   const savePalette = () => {
-    console.log('hello');
+    addPalette({
+      paletteName: 'New Test Palette',
+      id: 'material-ui-colors',
+      emoji: '🎨',
+      colors
+    });
   };
 
   return (
