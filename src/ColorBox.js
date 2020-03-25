@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import chroma from 'chroma-js';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import './ColorBox.css';
+import './styles/ColorBox.css';
 
 const ColorBox = ({ name, format, showMore, ...color }) => {
   const [copied, setCopied] = useState(false);

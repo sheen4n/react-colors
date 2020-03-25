@@ -1,9 +1,9 @@
 import React from 'react';
-import './App.css';
-import Palette from './Palette';
 import { Route, Switch } from 'react-router-dom';
-import PaletteList from './PaletteList';
+
 import SingleColorPalette from './SingleColorPalette';
+import PaletteList from './PaletteList';
+import Palette from './Palette';
 
 function App() {
   return (

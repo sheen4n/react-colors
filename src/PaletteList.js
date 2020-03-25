@@ -1,51 +1,23 @@
 import React from 'react';
 import seedColors from './seedColors';
 import MiniPalette from './MiniPalette';
-import { withStyles } from '@material-ui/styles';
+
 import { withRouter } from 'react-router-dom';
 
-const styles = {
-  root: {
-    backgroundColor: 'blue',
-    height: '100vh',
-    display: 'flex',
-    alignItems: 'flex-start',
-    justifyContent: 'center'
-  },
-  container: {
-    width: '50%',
-    display: 'flex',
-    alignItems: 'flex-start',
-    flexDirection: 'column',
-    flexWrap: 'wrap'
-  },
-  nav: {
-    display: 'flex',
-    width: '100%',
-    justifyContent: 'space-between',
-    color: 'white'
-  },
-  palette: {
-    boxSizing: 'border-box',
-    width: '100%',
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 30%)',
-    gridGap: '5%'
-  }
-};
+import './styles/PaletteList.css';
 
-const PaletteList = ({ classes, history }) => {
+const PaletteList = ({ history }) => {
   const palettes = [...seedColors];
 
   const goToPalette = id => () => history.push(`/palette/${id}`);
 
   return (
-    <div className={classes.root}>
-      <div className={classes.container}>
-        <nav className={classes.nav}>
+    <div className='PaletteList'>
+      <div className='PaletteList-container'>
+        <nav className='PaletteList-header'>
           <h1>React Colors</h1>
         </nav>
-        <div className={classes.palette}>
+        <div className='PaletteList-palettes-container'>
           {palettes.map(palette => (
             <MiniPalette
               {...palette}
@@ -59,4 +31,4 @@ const PaletteList = ({ classes, history }) => {
   );
 };
 
-export default withRouter(withStyles(styles)(PaletteList));
+export default withRouter(PaletteList);

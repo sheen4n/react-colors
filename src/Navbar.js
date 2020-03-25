@@ -3,7 +3,7 @@ import Slider from 'rc-slider';
 import CloseIcon from '@material-ui/icons/Close';
 
 import 'rc-slider/assets/index.css';
-import './Navbar.css';
+import './styles/Navbar.css';
 import { MenuItem, IconButton, Snackbar, Select } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 

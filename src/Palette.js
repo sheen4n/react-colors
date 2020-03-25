@@ -3,7 +3,7 @@ import ColorBox from './ColorBox';
 import seedColors from './seedColors';
 import generatePalette from './utils/colorHelper';
 
-import './Palette.css';
+import './styles/Palette.css';
 import Navbar from './Navbar';
 import { withRouter } from 'react-router-dom';
 import PaletteFooter from './PaletteFooter';
