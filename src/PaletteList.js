@@ -2,7 +2,7 @@ import React from 'react';
 import seedColors from './seedColors';
 import MiniPalette from './MiniPalette';
 
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 import './styles/PaletteList.css';
 
@@ -16,6 +16,7 @@ const PaletteList = ({ history }) => {
       <div className='PaletteList-container'>
         <nav className='PaletteList-header'>
           <h1>React Colors</h1>
+          <Link to='/palette/new'>Create Palette</Link>
         </nav>
         <div className='PaletteList-palettes-container'>
           {palettes.map(palette => (
