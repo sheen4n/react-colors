@@ -4,23 +4,37 @@ import PaletteColorPicker from './PaletteColorPicker';
 import { withRouter } from 'react-router-dom';
 import PaletteFormContent from './PaletteFormContent';
 import './styles/NewPaletteForm.css';
-import DraggableColorBox from './DraggableColorBox';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import PaletteFormAppBar from './PaletteFormAppBar';
 import { Button } from '@material-ui/core';
 
-import { Context } from './context/PaletteContext';
+import { Context as PaletteContext } from './context/PaletteContext';
+import { Context as NewPaletteFormContext } from './context/NewPaletteFormContext';
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
+import DraggableColorList from './DraggableColorList';
 
 const NewPaletteForm = ({ history }) => {
-  const { addPalette, state: palettes } = useContext(Context);
+  const { addPalette, state: palettes } = useContext(PaletteContext);
+  const {
+    addColorToPalette,
+    changeNewColor,
+    setErrorMessage,
+    changeNewPaletteName,
+    changeNewColorName,
+    changeColorsSequence,
+    state: newFormState
+  } = useContext(NewPaletteFormContext);
+
+  const {
+    newColors,
+    newColorName,
+    newColor,
+    errorMessage,
+    newPaletteName
+  } = newFormState;
+
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [newColor, setNewColor] = useState('teal');
-  const [newColors, setNewColors] = useState([]);
-  const [newColorName, setNewColorName] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [newPaletteName, setNewPaletteName] = useState('');
 
   const handleAddNewColor = () => {
     const newColorObject = { color: newColor, name: newColorName };
@@ -35,13 +49,13 @@ const NewPaletteForm = ({ history }) => {
     if (!isNameUnique) return setErrorMessage('New color name must be unique');
     if (!isColorUnique) return setErrorMessage('Color already used!');
 
-    setNewColors([...newColors, newColorObject]);
+    addColorToPalette(newColorObject);
     resetForm();
   };
 
   const resetForm = () => {
-    setNewColorName('');
-    setNewColor('');
+    changeNewColorName('');
+    changeNewColor('');
   };
 
   const createNewPalette = () => {
@@ -55,13 +69,14 @@ const NewPaletteForm = ({ history }) => {
       paletteName: newPaletteName,
       id: newPaletteName.toLowerCase().replace(/ /g, '-'),
       emoji: '🎨',
-      newColors
+      colors: newColors
     });
     history.push('/');
   };
 
-  const removeColor = color => () =>
-    setNewColors([...newColors.filter(c => c.color !== color)]);
+  const onSortEnd = ({ oldIndex, newIndex }) => {
+    changeColorsSequence(oldIndex, newIndex);
+  };
 
   return (
     <div className='NewPaletteForm'>
@@ -72,7 +87,7 @@ const NewPaletteForm = ({ history }) => {
           <TextValidator
             label='Palette Name'
             value={newPaletteName}
-            onChange={e => setNewPaletteName(e.target.value)}
+            onChange={e => changeNewPaletteName(e.target.value)}
           />
           <Button variant='contained' color='primary' type='submit'>
             Save Palette
@@ -83,22 +98,15 @@ const NewPaletteForm = ({ history }) => {
       <PaletteDrawer setDrawerOpen={setDrawerOpen} drawerOpen={drawerOpen}>
         <PaletteColorPicker
           newColor={newColor}
-          setNewColor={setNewColor}
+          setNewColor={changeNewColor}
           addNew={handleAddNewColor}
           newColorName={newColorName}
-          setNewColorName={setNewColorName}
+          setNewColorName={changeNewColorName}
           errorMessage={errorMessage}
         />
       </PaletteDrawer>
       <PaletteFormContent drawerOpen={drawerOpen}>
-        {newColors.map(({ color, name }) => (
-          <DraggableColorBox
-            color={color}
-            name={name}
-            showFull={true}
-            removeColor={removeColor(color)}
-          />
-        ))}
+        <DraggableColorList axis='xy' onSortEnd={onSortEnd} />
       </PaletteFormContent>
     </div>
   );

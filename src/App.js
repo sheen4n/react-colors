@@ -7,21 +7,24 @@ import Palette from './Palette';
 import NewPaletteForm from './NewPaletteForm';
 
 import { Provider as PaletteProvider } from './context/PaletteContext';
+import { Provider as NewPaletteFormProvider } from './context/NewPaletteFormContext';
 
 function App() {
   return (
-    <PaletteProvider>
-      <Switch>
-        <Route
-          exact
-          path='/palette/:paletteId/:colorId'
-          render={SingleColorPalette}
-        />
-        <Route exact path='/' render={() => <PaletteList />} />
-        <Route exact path='/palette/new' render={NewPaletteForm} />
-        <Route exact path='/palette/:id' render={Palette} />
-      </Switch>
-    </PaletteProvider>
+    <NewPaletteFormProvider>
+      <PaletteProvider>
+        <Switch>
+          <Route
+            exact
+            path='/palette/:paletteId/:colorId'
+            render={SingleColorPalette}
+          />
+          <Route exact path='/' render={() => <PaletteList />} />
+          <Route exact path='/palette/new' render={NewPaletteForm} />
+          <Route exact path='/palette/:id' render={Palette} />
+        </Switch>
+      </PaletteProvider>
+    </NewPaletteFormProvider>
   );
 }
 

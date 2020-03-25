@@ -12,6 +12,7 @@ const PaletteList = ({ history }) => {
 
   const goToPalette = id => () => history.push(`/palette/${id}`);
 
+  console.log(palettes);
   return (
     <div className='PaletteList'>
       <div className='PaletteList-container'>
@@ -19,6 +20,7 @@ const PaletteList = ({ history }) => {
           <h1>React Colors</h1>
           <Link to='/palette/new'>Create Palette</Link>
         </nav>
+
         <div className='PaletteList-palettes-container'>
           {palettes.map(palette => (
             <MiniPalette
