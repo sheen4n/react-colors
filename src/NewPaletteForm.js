@@ -4,11 +4,12 @@ import PaletteColorPicker from './PaletteColorPicker';
 import { withRouter } from 'react-router-dom';
 import PaletteFormContent from './PaletteFormContent';
 import './styles/NewPaletteForm.css';
+import DraggableColorBox from './DraggableColorBox';
 
 const NewPaletteForm = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [newColor, setNewColor] = useState('teal');
-  const [colors, setNewColors] = useState([]);
+  const [colors, setNewColors] = useState(['purple', 'blue', 'red']);
 
   const handleAddNewColor = () => setNewColors([...colors, newColor]);
 
@@ -23,7 +24,7 @@ const NewPaletteForm = () => {
       </PaletteDrawer>
       <PaletteFormContent drawerOpen={drawerOpen}>
         {colors.map(color => (
-          <h1>{color}</h1>
+          <DraggableColorBox color={color} showFull={true} />
         ))}
       </PaletteFormContent>
     </div>
