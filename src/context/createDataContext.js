@@ -10,8 +10,6 @@ export default (reducer, actions, initialState) => {
       return { ...result, [key]: actions[key](dispatch) };
     }, {});
 
-    console.log(boundedActions);
-
     return (
       <Context.Provider value={{ state, ...boundedActions }}>
         {children}

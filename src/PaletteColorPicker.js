@@ -8,8 +8,8 @@ import './styles/PaletteColorPicker.css';
 const PaletteColorPicker = ({
   newColor,
   setNewColor,
-  newName,
-  setNewName,
+  newColorName,
+  setNewColorName,
   addNew,
   errorMessage
 }) => {
@@ -31,8 +31,9 @@ const PaletteColorPicker = ({
 
       <ValidatorForm onSubmit={addNew}>
         <TextValidator
-          value={newName}
-          onChange={e => setNewName(e.target.value)}
+          label='Color Name'
+          value={newColorName}
+          onChange={e => setNewColorName(e.target.value)}
         />
         {errorMessage && (
           <span style={{ color: 'red', display: 'block' }}>{errorMessage}</span>

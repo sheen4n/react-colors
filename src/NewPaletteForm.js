@@ -11,23 +11,25 @@ import PaletteFormAppBar from './PaletteFormAppBar';
 import { Button } from '@material-ui/core';
 
 import { Context } from './context/PaletteContext';
+import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 
-const NewPaletteForm = () => {
-  const { addPalette } = useContext(Context);
+const NewPaletteForm = ({ history }) => {
+  const { addPalette, state: palettes } = useContext(Context);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [newColor, setNewColor] = useState('teal');
   const [colors, setNewColors] = useState([]);
-  const [newName, setNewName] = useState('');
+  const [newColorName, setNewColorName] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [newPaletteName, setNewPaletteName] = useState('');
 
   const handleAddNewColor = () => {
-    const newColorObject = { color: newColor, name: newName };
+    const newColorObject = { color: newColor, name: newColorName };
 
     const isNameUnique = colors
       .map(c => c.name)
-      .every(n => n.toLowerCase() !== newName.toLowerCase());
+      .every(n => n.toLowerCase() !== newColorName.toLowerCase());
     const isColorUnique = colors.map(c => c.color).every(c => c !== newColor);
-    if (newName.trim() === '') return setErrorMessage('Name is required');
+    if (newColorName.trim() === '') return setErrorMessage('Name is required');
     if (!isNameUnique) return setErrorMessage('New color name must be unique');
     if (!isColorUnique) return setErrorMessage('Color already used!');
 
@@ -36,17 +38,24 @@ const NewPaletteForm = () => {
   };
 
   const resetForm = () => {
-    setNewName('');
+    setNewColorName('');
     setNewColor('');
   };
 
-  const savePalette = () => {
+  const createNewPalette = () => {
+    const isNameUnique = palettes
+      .map(p => p.paletteName)
+      .every(n => n.toLowerCase() !== newPaletteName.toLowerCase());
+    if (newPaletteName.trim() === '') return alert('Name is required');
+    if (!isNameUnique) return alert('Name must be unique');
+
     addPalette({
-      paletteName: 'New Test Palette',
-      id: 'material-ui-colors',
+      paletteName: newPaletteName,
+      id: newPaletteName.toLowerCase().replace(/ /g, '-'),
       emoji: '🎨',
       colors
     });
+    history.push('/');
   };
 
   return (
@@ -54,9 +63,16 @@ const NewPaletteForm = () => {
       <CssBaseline />
 
       <PaletteFormAppBar setDrawerOpen={setDrawerOpen} drawerOpen={drawerOpen}>
-        <Button variant='contained' color='primary' onClick={savePalette}>
-          Save Palette
-        </Button>
+        <ValidatorForm onSubmit={createNewPalette}>
+          <TextValidator
+            label='Palette Name'
+            value={newPaletteName}
+            onChange={e => setNewPaletteName(e.target.value)}
+          />
+          <Button variant='contained' color='primary' type='submit'>
+            Save Palette
+          </Button>
+        </ValidatorForm>
       </PaletteFormAppBar>
 
       <PaletteDrawer setDrawerOpen={setDrawerOpen} drawerOpen={drawerOpen}>
@@ -64,8 +80,8 @@ const NewPaletteForm = () => {
           newColor={newColor}
           setNewColor={setNewColor}
           addNew={handleAddNewColor}
-          newName={newName}
-          setNewName={setNewName}
+          newColorName={newColorName}
+          setNewColorName={setNewColorName}
           errorMessage={errorMessage}
         />
       </PaletteDrawer>

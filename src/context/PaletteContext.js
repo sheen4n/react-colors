@@ -16,12 +16,8 @@ const addPalette = dispatch => newPalette => {
   dispatch({ type: 'add_palette', payload: newPalette });
 };
 
-const deletePalette = dispatch => newPalette => {
-  dispatch({ type: 'add_palette', payload: newPalette });
-};
-
 export const { Context, Provider } = createDataContext(
   paletteReducer,
-  { addPalette, deletePalette },
+  { addPalette },
   seedData
 );
