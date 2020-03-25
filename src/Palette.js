@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import ColorBox from './ColorBox';
-import seedColors from './seedColors';
+
 import generatePalette from './utils/colorHelper';
 
 import './styles/Palette.css';
@@ -8,11 +8,15 @@ import Navbar from './Navbar';
 import { withRouter } from 'react-router-dom';
 import PaletteFooter from './PaletteFooter';
 
+import PaletteContext from './context/PaletteContext';
+
 const Palette = ({ match }) => {
+  const palettes = useContext(PaletteContext);
+
   const [level, setLevel] = useState(500);
   const [format, setFormat] = useState('hex');
 
-  const existingPalette = [...seedColors].find(p => p.id === match.params.id);
+  const existingPalette = palettes.find(p => p.id === match.params.id);
   if (!existingPalette) return <div>Invalid Palette</div>;
 
   const palette = generatePalette(existingPalette);

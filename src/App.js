@@ -6,9 +6,11 @@ import PaletteList from './PaletteList';
 import Palette from './Palette';
 import NewPaletteForm from './NewPaletteForm';
 
+import { PaletteProvider } from './context/PaletteContext';
+
 function App() {
   return (
-    <>
+    <PaletteProvider>
       <Switch>
         <Route
           exact
@@ -19,7 +21,7 @@ function App() {
         <Route exact path='/palette/new' render={NewPaletteForm} />
         <Route exact path='/palette/:id' render={Palette} />
       </Switch>
-    </>
+    </PaletteProvider>
   );
 }
 

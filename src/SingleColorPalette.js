@@ -1,19 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 
-import seedColors from './seedColors';
+import PaletteContext from './context/PaletteContext';
+
 import generatePalette from './utils/colorHelper';
 import ColorBox from './ColorBox';
 import Navbar from './Navbar';
 import PaletteFooter from './PaletteFooter';
+import _ from 'lodash';
 
 const SingleColorPalette = ({ match }) => {
   const [format, setFormat] = useState('hex');
 
-  let palette = { ...seedColors.find(p => p.id === match.params.paletteId) };
+  const palettes = useContext(PaletteContext);
 
-  palette.colors = [
-    { ...palette }.colors.find(
+  const palette = palettes.find(p => p.id === match.params.paletteId);
+
+  let deepClone = _.cloneDeep(palette);
+
+  deepClone.colors = [
+    deepClone.colors.find(
       element => element.name.toLowerCase() === match.params.colorId
     )
   ];
@@ -23,7 +29,7 @@ const SingleColorPalette = ({ match }) => {
     emoji,
     paletteName,
     id: paletteId
-  } = generatePalette(palette);
+  } = generatePalette(deepClone);
 
   const colorArray = Object.keys(singlePaletteColors)
     .filter(k => k !== '50')

@@ -6,6 +6,10 @@ import PaletteFormContent from './PaletteFormContent';
 import './styles/NewPaletteForm.css';
 import DraggableColorBox from './DraggableColorBox';
 
+import CssBaseline from '@material-ui/core/CssBaseline';
+import PaletteFormAppBar from './PaletteFormAppBar';
+import { Button } from '@material-ui/core';
+
 const NewPaletteForm = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [newColor, setNewColor] = useState('teal');
@@ -32,8 +36,21 @@ const NewPaletteForm = () => {
     setNewName('');
     setNewColor('');
   };
+
+  const savePalette = () => {
+    console.log('hello');
+  };
+
   return (
     <div className='NewPaletteForm'>
+      <CssBaseline />
+
+      <PaletteFormAppBar setDrawerOpen={setDrawerOpen} drawerOpen={drawerOpen}>
+        <Button variant='contained' color='primary' onClick={savePalette}>
+          Save Palette
+        </Button>
+      </PaletteFormAppBar>
+
       <PaletteDrawer setDrawerOpen={setDrawerOpen} drawerOpen={drawerOpen}>
         <PaletteColorPicker
           newColor={newColor}

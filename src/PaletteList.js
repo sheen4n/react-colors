@@ -1,5 +1,5 @@
-import React from 'react';
-import seedColors from './seedColors';
+import React, { useContext } from 'react';
+import PaletteContext from './context/PaletteContext';
 import MiniPalette from './MiniPalette';
 
 import { withRouter, Link } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { withRouter, Link } from 'react-router-dom';
 import './styles/PaletteList.css';
 
 const PaletteList = ({ history }) => {
-  const palettes = [...seedColors];
+  const palettes = useContext(PaletteContext);
 
   const goToPalette = id => () => history.push(`/palette/${id}`);
 

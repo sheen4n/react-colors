@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 
-const drawerWidth = 400;
+import { DRAWER_WIDTH } from './config/ui-variables';
 
 const useStyles = makeStyles(theme => ({
   drawerHeader: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     }),
-    marginLeft: -drawerWidth
+    marginLeft: -DRAWER_WIDTH
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
