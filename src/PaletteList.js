@@ -47,7 +47,11 @@ const PaletteList = ({ classes, history }) => {
         </nav>
         <div className={classes.palette}>
           {palettes.map(palette => (
-            <MiniPalette {...palette} goToPalette={goToPalette(palette.id)} />
+            <MiniPalette
+              {...palette}
+              goToPalette={goToPalette(palette.id)}
+              key={palette.id}
+            />
           ))}
         </div>
       </div>

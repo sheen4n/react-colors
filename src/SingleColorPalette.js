@@ -25,9 +25,9 @@ const SingleColorPalette = ({ match }) => {
     id: paletteId
   } = generatePalette(palette);
 
-  const colorArray = Object.keys(singlePaletteColors).map(
-    k => singlePaletteColors[k][0]
-  );
+  const colorArray = Object.keys(singlePaletteColors)
+    .filter(k => k !== '50')
+    .map(k => singlePaletteColors[k][0]);
 
   const changeFormat = e => setFormat(e.target.value);
 
