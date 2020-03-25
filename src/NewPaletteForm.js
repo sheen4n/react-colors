@@ -17,7 +17,7 @@ const NewPaletteForm = ({ history }) => {
   const { addPalette, state: palettes } = useContext(Context);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [newColor, setNewColor] = useState('teal');
-  const [colors, setNewColors] = useState([]);
+  const [newColors, setNewColors] = useState([]);
   const [newColorName, setNewColorName] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [newPaletteName, setNewPaletteName] = useState('');
@@ -25,15 +25,17 @@ const NewPaletteForm = ({ history }) => {
   const handleAddNewColor = () => {
     const newColorObject = { color: newColor, name: newColorName };
 
-    const isNameUnique = colors
+    const isNameUnique = newColors
       .map(c => c.name)
       .every(n => n.toLowerCase() !== newColorName.toLowerCase());
-    const isColorUnique = colors.map(c => c.color).every(c => c !== newColor);
+    const isColorUnique = newColors
+      .map(c => c.color)
+      .every(c => c !== newColor);
     if (newColorName.trim() === '') return setErrorMessage('Name is required');
     if (!isNameUnique) return setErrorMessage('New color name must be unique');
     if (!isColorUnique) return setErrorMessage('Color already used!');
 
-    setNewColors([...colors, newColorObject]);
+    setNewColors([...newColors, newColorObject]);
     resetForm();
   };
 
@@ -53,10 +55,13 @@ const NewPaletteForm = ({ history }) => {
       paletteName: newPaletteName,
       id: newPaletteName.toLowerCase().replace(/ /g, '-'),
       emoji: '🎨',
-      colors
+      newColors
     });
     history.push('/');
   };
+
+  const removeColor = color => () =>
+    setNewColors([...newColors.filter(c => c.color !== color)]);
 
   return (
     <div className='NewPaletteForm'>
@@ -86,8 +91,13 @@ const NewPaletteForm = ({ history }) => {
         />
       </PaletteDrawer>
       <PaletteFormContent drawerOpen={drawerOpen}>
-        {colors.map(({ color, name }) => (
-          <DraggableColorBox color={color} name={name} showFull={true} />
+        {newColors.map(({ color, name }) => (
+          <DraggableColorBox
+            color={color}
+            name={name}
+            showFull={true}
+            removeColor={removeColor(color)}
+          />
         ))}
       </PaletteFormContent>
     </div>
