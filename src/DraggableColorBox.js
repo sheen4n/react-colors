@@ -1,13 +1,13 @@
 import React from 'react';
 import './styles/DraggableColorBox.css';
 
-const DraggableColorBox = ({ color, showFull }) => {
+const DraggableColorBox = ({ color, name, showFull }) => {
   return (
     <div
       style={{ backgroundColor: color }}
       className={`DraggableColorBox ${showFull && 'showFull'}`}
     >
-      {color}
+      {name}
     </div>
   );
 };

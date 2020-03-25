@@ -9,10 +9,29 @@ import DraggableColorBox from './DraggableColorBox';
 const NewPaletteForm = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [newColor, setNewColor] = useState('teal');
-  const [colors, setNewColors] = useState(['purple', 'blue', 'red']);
+  const [colors, setNewColors] = useState([]);
+  const [newName, setNewName] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleAddNewColor = () => setNewColors([...colors, newColor]);
+  const handleAddNewColor = () => {
+    const newColorObject = { color: newColor, name: newName };
 
+    const isNameUnique = colors
+      .map(c => c.name)
+      .every(n => n.toLowerCase() !== newName.toLowerCase());
+    const isColorUnique = colors.map(c => c.color).every(c => c !== newColor);
+    if (newName.trim() === '') return setErrorMessage('Name is required');
+    if (!isNameUnique) return setErrorMessage('New color name must be unique');
+    if (!isColorUnique) return setErrorMessage('Color already used!');
+
+    setNewColors([...colors, newColorObject]);
+    resetForm();
+  };
+
+  const resetForm = () => {
+    setNewName('');
+    setNewColor('');
+  };
   return (
     <div className='NewPaletteForm'>
       <PaletteDrawer setDrawerOpen={setDrawerOpen} drawerOpen={drawerOpen}>
@@ -20,11 +39,14 @@ const NewPaletteForm = () => {
           newColor={newColor}
           setNewColor={setNewColor}
           addNew={handleAddNewColor}
+          newName={newName}
+          setNewName={setNewName}
+          errorMessage={errorMessage}
         />
       </PaletteDrawer>
       <PaletteFormContent drawerOpen={drawerOpen}>
-        {colors.map(color => (
-          <DraggableColorBox color={color} showFull={true} />
+        {colors.map(({ color, name }) => (
+          <DraggableColorBox color={color} name={name} showFull={true} />
         ))}
       </PaletteFormContent>
     </div>

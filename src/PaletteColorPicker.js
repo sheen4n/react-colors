@@ -1,9 +1,18 @@
 import React from 'react';
 import { ChromePicker } from 'react-color';
-import './styles/PaletteColorPicker.css';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { Button } from '@material-ui/core';
 
-const PaletteColorPicker = ({ newColor, setNewColor, addNew }) => {
+import './styles/PaletteColorPicker.css';
+
+const PaletteColorPicker = ({
+  newColor,
+  setNewColor,
+  newName,
+  setNewName,
+  addNew,
+  errorMessage
+}) => {
   return (
     <>
       <h2 className='PaletteColorPicker-header'>Design Your Palette </h2>
@@ -20,14 +29,24 @@ const PaletteColorPicker = ({ newColor, setNewColor, addNew }) => {
         onChangeComplete={c => setNewColor(c.hex)}
       />
 
-      <Button
-        variant='contained'
-        color='primary'
-        style={{ backgroundColor: newColor }}
-        onClick={addNew}
-      >
-        Add Color
-      </Button>
+      <ValidatorForm onSubmit={addNew}>
+        <TextValidator
+          value={newName}
+          onChange={e => setNewName(e.target.value)}
+        />
+        {errorMessage && (
+          <span style={{ color: 'red', display: 'block' }}>{errorMessage}</span>
+        )}
+
+        <Button
+          variant='contained'
+          color='primary'
+          style={{ backgroundColor: newColor }}
+          type='submit'
+        >
+          Add Color
+        </Button>
+      </ValidatorForm>
     </>
   );
 };
