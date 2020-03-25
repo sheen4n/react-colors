@@ -6,7 +6,7 @@ import PaletteList from './PaletteList';
 import Palette from './Palette';
 import NewPaletteForm from './NewPaletteForm';
 
-import { PaletteProvider } from './context/PaletteContext';
+import { Provider as PaletteProvider } from './context/PaletteContext';
 
 function App() {
   return (

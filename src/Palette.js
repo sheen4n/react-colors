@@ -8,10 +8,10 @@ import Navbar from './Navbar';
 import { withRouter } from 'react-router-dom';
 import PaletteFooter from './PaletteFooter';
 
-import PaletteContext from './context/PaletteContext';
+import { Context } from './context/PaletteContext';
 
 const Palette = ({ match }) => {
-  const palettes = useContext(PaletteContext);
+  const { state: palettes } = useContext(Context);
 
   const [level, setLevel] = useState(500);
   const [format, setFormat] = useState('hex');

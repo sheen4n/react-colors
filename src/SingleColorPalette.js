@@ -1,18 +1,18 @@
 import React, { useState, useContext } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 
-import PaletteContext from './context/PaletteContext';
-
 import generatePalette from './utils/colorHelper';
 import ColorBox from './ColorBox';
 import Navbar from './Navbar';
 import PaletteFooter from './PaletteFooter';
 import _ from 'lodash';
 
+import { Context } from './context/PaletteContext';
+
 const SingleColorPalette = ({ match }) => {
   const [format, setFormat] = useState('hex');
 
-  const palettes = useContext(PaletteContext);
+  const { state: palettes } = useContext(Context);
 
   const palette = palettes.find(p => p.id === match.params.paletteId);
 
