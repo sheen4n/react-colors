@@ -11,16 +11,19 @@ const PaletteColorPicker = ({
   newColorName,
   setNewColorName,
   addNew,
-  errorMessage
+  errorMessage,
+  clearColors,
+  addRandomColor,
+  isPaletteFull
 }) => {
   return (
     <>
       <h2 className='PaletteColorPicker-header'>Design Your Palette </h2>
       <div className='button-container'>
-        <Button color='secondary' variant='contained'>
+        <Button color='secondary' variant='contained' onClick={clearColors}>
           CLEAR PALETTE
         </Button>
-        <Button color='primary' variant='contained'>
+        <Button color='primary' variant='contained' onClick={addRandomColor}>
           RANDOM COLOR
         </Button>
       </div>
@@ -42,10 +45,11 @@ const PaletteColorPicker = ({
         <Button
           variant='contained'
           color='primary'
-          style={{ backgroundColor: newColor }}
+          style={{ backgroundColor: isPaletteFull ? 'Grey' : newColor }}
           type='submit'
+          disabled={isPaletteFull}
         >
-          Add Color
+          {isPaletteFull ? 'PALETTE FULL' : 'ADD COLOR'}
         </Button>
       </ValidatorForm>
     </>

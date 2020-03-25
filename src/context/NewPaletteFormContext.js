@@ -68,6 +68,9 @@ const newPaletteFormContext = (state, { type, payload }) => {
     case 'set_error_message':
       return { ...state, errorMessage: payload };
 
+    case 'clear_colors':
+      return { ...state, newColors: [] };
+
     default:
       return state;
   }
@@ -105,6 +108,10 @@ const changeColorsSequence = dispatch => (oldIndex, newIndex) => {
   dispatch({ type: 'change_colors_sequence', payload: { oldIndex, newIndex } });
 };
 
+const clearColors = dispatch => () => {
+  dispatch({ type: 'clear_colors' });
+};
+
 export const { Context, Provider } = createDataContext(
   newPaletteFormContext,
   {
@@ -115,7 +122,8 @@ export const { Context, Provider } = createDataContext(
     addColorToPalette,
     changeNewPaletteName,
     changeNewColorName,
-    changeColorsSequence
+    changeColorsSequence,
+    clearColors
   },
   INITIAL_STATE
 );

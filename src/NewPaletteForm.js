@@ -14,6 +14,8 @@ import { Context as NewPaletteFormContext } from './context/NewPaletteFormContex
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 import DraggableColorList from './DraggableColorList';
 
+const MAX_NEW_COLORS = 20;
+
 const NewPaletteForm = ({ history }) => {
   const { addPalette, state: palettes } = useContext(PaletteContext);
   const {
@@ -23,6 +25,7 @@ const NewPaletteForm = ({ history }) => {
     changeNewPaletteName,
     changeNewColorName,
     changeColorsSequence,
+    clearColors,
     state: newFormState
   } = useContext(NewPaletteFormContext);
 
@@ -78,6 +81,20 @@ const NewPaletteForm = ({ history }) => {
     changeColorsSequence(oldIndex, newIndex);
   };
 
+  const addRandomColor = () => {
+    const allColors = palettes
+      .map(p => p.colors)
+      .flat()
+      .filter(
+        c =>
+          !newColors.map(nc => nc.color).includes(c.color) &&
+          !newColors.map(nc => nc.name).includes(c.name)
+      );
+    const rand = Math.floor(Math.random() * allColors.length);
+    const randomColor = allColors[rand];
+    addColorToPalette(randomColor);
+  };
+
   return (
     <div className='NewPaletteForm'>
       <CssBaseline />
@@ -103,6 +120,9 @@ const NewPaletteForm = ({ history }) => {
           newColorName={newColorName}
           setNewColorName={changeNewColorName}
           errorMessage={errorMessage}
+          clearColors={clearColors}
+          addRandomColor={addRandomColor}
+          isPaletteFull={newColors.length >= MAX_NEW_COLORS}
         />
       </PaletteDrawer>
       <PaletteFormContent drawerOpen={drawerOpen}>
