@@ -17,7 +17,7 @@ const Palette = ({ match }) => {
   const [format, setFormat] = useState('hex');
 
   const existingPalette = palettes.find(p => p.id === match.params.id);
-  if (!existingPalette) return <Redirect to='/' />;
+  if (!existingPalette) return <Redirect to='/react-colors' />;
 
   const palette = generatePalette(existingPalette);
 

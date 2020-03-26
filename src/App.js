@@ -16,20 +16,17 @@ function App() {
         <Switch>
           <Route
             exact
-            path='/palette/:paletteId/:colorId'
+            path='/react-colors/palette/:paletteId/:colorId'
             render={SingleColorPalette}
           />
-          <Route exact path='/home' render={() => <PaletteList />} />
-          <Route exact path='/palette/new' render={NewPaletteForm} />
-          <Route exact path='/palette/:id' render={Palette} />
-          <Redirect
+          <Route exact path='/react-colors' render={() => <PaletteList />} />
+          <Route
             exact
-            from='/'
-            to='/home'
-            component={() => <PaletteList />}
+            path='/react-colors/palette/new'
+            render={NewPaletteForm}
           />
-
-          <Redirect to='/home' />
+          <Route exact path='/react-colors/palette/:id' render={Palette} />
+          <Redirect to='/react-colors' />
         </Switch>
       </PaletteProvider>
     </NewPaletteFormProvider>
