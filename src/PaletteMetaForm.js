@@ -21,9 +21,11 @@ const PaletteMetaForm = ({ hideForm, history }) => {
 
   const { addPalette, state: palettes } = useContext(PaletteContext);
 
-  const { changeNewPaletteName, state: newFormState } = useContext(
-    NewPaletteFormContext
-  );
+  const {
+    changeNewPaletteName,
+    resetNewPaletteForm,
+    state: newFormState
+  } = useContext(NewPaletteFormContext);
 
   useEffect(() => {
     ValidatorForm.addValidationRule('isPaletteNameUnique', value =>
@@ -44,6 +46,7 @@ const PaletteMetaForm = ({ hideForm, history }) => {
       emoji: emoji.native,
       colors: newColors
     });
+    resetNewPaletteForm();
     history.push('/');
   };
 

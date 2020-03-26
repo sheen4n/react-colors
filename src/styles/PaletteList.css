@@ -1,9 +1,11 @@
 .PaletteList {
-  background-color: blue;
+  background-color: #394bad;
   height: 100vh;
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  background-image: url(bg.svg);
+  overflow: scroll;
 }
 
 .PaletteList-container {
@@ -12,6 +14,12 @@
   align-items: flex-start;
   flex-direction: column;
   flex-wrap: wrap;
+}
+
+@media screen and (max-width: 1200px) {
+  .PaletteList-container {
+    width: 80%;
+  }
 }
 
 .PaletteList-header {
@@ -33,4 +41,21 @@
   grid-template-columns: repeat(3, 30%);
   column-gap: 5%;
   row-gap: 5%;
+}
+
+@media screen and (max-width: 900px) {
+  .PaletteList-palettes-container {
+    grid-template-columns: repeat(2, 50%);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .PaletteList-container {
+    width: 60%;
+  }
+
+  .PaletteList-palettes-container {
+    grid-template-columns: repeat(1, 100%);
+    row-gap: 2%;
+  }
 }

@@ -16,7 +16,6 @@ const DraggableColorList = () => {
         <DraggableColorBox
           color={color}
           name={name}
-          showFull={true}
           removeColor={() => deleteColor(name)}
           key={name}
           index={i}

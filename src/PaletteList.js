@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import MiniPalette from './MiniPalette';
 
 import { withRouter, Link } from 'react-router-dom';
@@ -6,15 +6,28 @@ import { withRouter, Link } from 'react-router-dom';
 import './styles/PaletteList.css';
 
 import { Context } from './context/PaletteContext';
+import DeletePaletteDialog from './DeletePaletteDialog';
 
 const PaletteList = ({ history }) => {
   const { removePalette, state: palettes } = useContext(Context);
 
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [deleteId, setDeleteId] = useState('');
+
+  const closeDialog = () => setOpenDeleteDialog(false);
+
   const goToPalette = id => () => history.push(`/palette/${id}`);
 
-  const handleDeletePalette = id => e => {
+  const openDialog = id => e => {
     e.stopPropagation();
-    removePalette(id);
+    setOpenDeleteDialog(true);
+    setDeleteId(id);
+  };
+
+  const handleDeletePalette = () => {
+    removePalette(deleteId);
+    setDeleteId('');
+    setOpenDeleteDialog(false);
   };
 
   useEffect(() => {
@@ -35,11 +48,16 @@ const PaletteList = ({ history }) => {
               {...palette}
               goToPalette={goToPalette(palette.id)}
               key={palette.id}
-              removePalette={handleDeletePalette(palette.id)}
+              removePalette={openDialog(palette.id)}
             />
           ))}
         </div>
       </div>
+      <DeletePaletteDialog
+        open={openDeleteDialog}
+        closeDialog={closeDialog}
+        handleDelete={handleDeletePalette}
+      />
     </div>
   );
 };

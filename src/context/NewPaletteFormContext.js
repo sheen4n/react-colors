@@ -34,7 +34,7 @@ const INITIAL_STATE = {
 const newPaletteFormContext = (state, { type, payload }) => {
   switch (type) {
     case 'reset_form':
-      return INITIAL_COLORS;
+      return INITIAL_STATE;
     case 'change_new_palette_name':
       return { ...state, newPaletteName: payload };
 

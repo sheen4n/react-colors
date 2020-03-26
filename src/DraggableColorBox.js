@@ -3,15 +3,12 @@ import './styles/DraggableColorBox.css';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { SortableElement } from 'react-sortable-hoc';
 
-const DraggableColorBox = ({ color, name, showFull, removeColor }) => {
+const DraggableColorBox = ({ color, name, removeColor }) => {
   return (
-    <div
-      style={{ backgroundColor: color }}
-      className={`DraggableColorBox ${showFull && 'showFull'}`}
-    >
-      <div className='box-content'>
+    <div style={{ backgroundColor: color }} className={'DraggableColorBox'}>
+      <div className="box-content">
         <span>{name}</span>
-        <DeleteIcon className='delete-icon' onClick={removeColor} />
+        <DeleteIcon className="delete-icon" onClick={removeColor} />
       </div>
     </div>
   );
