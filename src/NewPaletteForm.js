@@ -9,63 +9,41 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import PaletteFormAppBar from './PaletteFormAppBar';
 import { Button } from '@material-ui/core';
 
-import { Context as PaletteContext } from './context/PaletteContext';
 import { Context as NewPaletteFormContext } from './context/NewPaletteFormContext';
-import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
+
 import DraggableColorList from './DraggableColorList';
+import PaletteMetaForm from './PaletteMetaForm';
 
-const NewPaletteForm = ({ history }) => {
-  const { addPalette, state: palettes } = useContext(PaletteContext);
-  const {
-    changeNewPaletteName,
-    changeColorsSequence,
-    state: newFormState
-  } = useContext(NewPaletteFormContext);
-
-  const { newColors, newPaletteName } = newFormState;
+const NewPaletteForm = () => {
+  const { changeColorsSequence } = useContext(NewPaletteFormContext);
 
   const [drawerOpen, setDrawerOpen] = useState(false);
-
-  const createNewPalette = () => {
-    const isNameUnique = palettes
-      .map(p => p.paletteName)
-      .every(n => n.toLowerCase() !== newPaletteName.toLowerCase());
-    if (newPaletteName.trim() === '') return alert('Name is required');
-    if (!isNameUnique) return alert('Name must be unique');
-
-    addPalette({
-      paletteName: newPaletteName,
-      id: newPaletteName.toLowerCase().replace(/ /g, '-'),
-      emoji: '🎨',
-      colors: newColors
-    });
-    history.push('/');
-  };
+  const [showForm, setShowForm] = useState(false);
 
   const onSortEnd = ({ oldIndex, newIndex }) => {
     changeColorsSequence(oldIndex, newIndex);
   };
+
+  const hideForm = () => setShowForm(false);
+  const revealForm = () => setShowForm(true);
 
   return (
     <div className="NewPaletteForm">
       <CssBaseline />
 
       <PaletteFormAppBar setDrawerOpen={setDrawerOpen} drawerOpen={drawerOpen}>
-        <ValidatorForm className="button-group" onSubmit={createNewPalette}>
-          <TextValidator
-            label="Palette Name"
-            value={newPaletteName}
-            onChange={e => changeNewPaletteName(e.target.value)}
-          />
-          <Button variant="contained" color="primary" type="submit">
-            Save Palette
-          </Button>
+        <div className="NewPaletteForm-appbar button-group">
           <Link to="/">
             <Button variant="contained" color="secondary">
               Go Back
             </Button>
           </Link>
-        </ValidatorForm>
+          <Button variant="contained" color="primary" onClick={revealForm}>
+            Save
+          </Button>
+        </div>
+
+        {showForm && <PaletteMetaForm hideForm={hideForm} />}
       </PaletteFormAppBar>
 
       <PaletteDrawer setDrawerOpen={setDrawerOpen} drawerOpen={drawerOpen}>

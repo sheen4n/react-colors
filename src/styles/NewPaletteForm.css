@@ -8,3 +8,12 @@
   flex-direction: row;
   align-items: center;
 }
+
+.NewPaletteForm-appbar button {
+  margin: 0 1rem;
+  width: 6rem;
+}
+
+.NewPaletteForm-appbar a {
+  text-decoration: none;
+}

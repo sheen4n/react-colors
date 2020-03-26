@@ -59,7 +59,7 @@ const PaletteFormAppBar = ({ children, setDrawerOpen, drawerOpen }) => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap>
-          Persistent drawer
+          Create a Palette
         </Typography>
         {children}
       </Toolbar>
