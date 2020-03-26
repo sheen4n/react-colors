@@ -51,7 +51,7 @@ const NewPaletteForm = ({ history }) => {
       <CssBaseline />
 
       <PaletteFormAppBar setDrawerOpen={setDrawerOpen} drawerOpen={drawerOpen}>
-        <ValidatorForm onSubmit={createNewPalette}>
+        <ValidatorForm className="button-group" onSubmit={createNewPalette}>
           <TextValidator
             label="Palette Name"
             value={newPaletteName}

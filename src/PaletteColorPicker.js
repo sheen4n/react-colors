@@ -62,7 +62,7 @@ const PaletteColorPicker = () => {
   };
 
   return (
-    <>
+    <div className="PaletteColorPicker">
       <h2 className="PaletteColorPicker-header">Design Your Palette </h2>
       <div className="button-container">
         <Button color="secondary" variant="contained" onClick={clearColors}>
@@ -80,19 +80,23 @@ const PaletteColorPicker = () => {
       <ChromePicker
         color={newColor}
         onChangeComplete={c => changeNewColor(c.hex)}
+        className="color-picker"
       />
 
-      <ValidatorForm onSubmit={handleAddNewColor}>
+      <ValidatorForm onSubmit={handleAddNewColor} className="add-color-form">
         <TextValidator
           label="Color Name"
           value={newColorName}
           onChange={e => changeNewColorName(e.target.value)}
+          variant="filled"
+          className="color-name-input"
         />
         {errorMessage && (
           <span style={{ color: 'red', display: 'block' }}>{errorMessage}</span>
         )}
 
         <Button
+          className="add-color-btn"
           variant="contained"
           color="primary"
           style={{ backgroundColor: isPaletteFull ? 'Grey' : newColor }}
@@ -102,7 +106,7 @@ const PaletteColorPicker = () => {
           {isPaletteFull ? 'PALETTE FULL' : 'ADD COLOR'}
         </Button>
       </ValidatorForm>
-    </>
+    </div>
   );
 };
 

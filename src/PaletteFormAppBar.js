@@ -10,6 +10,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { DRAWER_WIDTH } from './config/ui-variables';
 
+import './styles/PaletteFormAppBar.css';
+
 const useStyles = makeStyles(theme => ({
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -40,23 +42,23 @@ const PaletteFormAppBar = ({ children, setDrawerOpen, drawerOpen }) => {
 
   return (
     <AppBar
-      position='fixed'
-      color='default'
+      position="fixed"
+      color="default"
       className={clsx(classes.appBar, {
         [classes.appBarShift]: drawerOpen
       })}
     >
-      <Toolbar>
+      <Toolbar className="PaletteFormAppBar-toolbar">
         <IconButton
-          color='inherit'
-          aria-label='open drawer'
+          color="inherit"
+          aria-label="open drawer"
           onClick={handleDrawerOpen}
-          edge='start'
+          edge="start"
           className={clsx(classes.menuButton, drawerOpen && classes.hide)}
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant='h6' noWrap>
+        <Typography variant="h6" noWrap>
           Persistent drawer
         </Typography>
         {children}

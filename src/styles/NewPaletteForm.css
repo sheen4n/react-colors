@@ -1,3 +1,10 @@
 .NewPaletteForm {
   display: flex;
 }
+
+.NewPaletteForm .button-group {
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

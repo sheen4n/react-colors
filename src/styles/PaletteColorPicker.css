@@ -1,3 +1,44 @@
+.PaletteColorPicker {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .PaletteColorPicker-header {
   font-family: Roboto;
+  font-weight: 400;
+  padding-bottom: 0.5rem;
+}
+
+.PaletteColorPicker .add-color-btn {
+  margin-top: 1rem;
+  width: 85%;
+  height: 3rem;
+}
+
+.PaletteColorPicker .add-color-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.PaletteColorPicker .color-name-input {
+  margin-top: 1rem;
+  width: 85%;
+}
+
+.PaletteColorPicker .color-picker {
+  margin-top: 1rem;
+  width: 85% !important;
+}
+
+.PaletteColorPicker .button-container {
+  width: 85%;
+}
+
+.PaletteColorPicker .button-container button {
+  width: 50%;
 }
