@@ -28,17 +28,17 @@ const NewPaletteForm = () => {
   const revealForm = () => setShowForm(true);
 
   return (
-    <div className="NewPaletteForm">
+    <div className='NewPaletteForm'>
       <CssBaseline />
 
       <PaletteFormAppBar setDrawerOpen={setDrawerOpen} drawerOpen={drawerOpen}>
-        <div className="NewPaletteForm-appbar button-group">
-          <Link to="/">
-            <Button variant="contained" color="secondary">
+        <div className='NewPaletteForm-appbar button-group'>
+          <Link to='/react-colors'>
+            <Button variant='contained' color='secondary'>
               Go Back
             </Button>
           </Link>
-          <Button variant="contained" color="primary" onClick={revealForm}>
+          <Button variant='contained' color='primary' onClick={revealForm}>
             Save
           </Button>
         </div>
@@ -50,7 +50,7 @@ const NewPaletteForm = () => {
         <PaletteColorPicker />
       </PaletteDrawer>
       <PaletteFormContent drawerOpen={drawerOpen}>
-        <DraggableColorList axis="xy" onSortEnd={onSortEnd} />
+        <DraggableColorList axis='xy' onSortEnd={onSortEnd} />
       </PaletteFormContent>
     </div>
   );

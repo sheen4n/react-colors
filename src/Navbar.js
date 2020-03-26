@@ -18,7 +18,7 @@ const Navbar = ({ level, changeLevel, format, changeFormat, showSlider }) => {
   return (
     <header className='Navbar'>
       <div className='logo'>
-        <Link to='/'>ReactColorPicker</Link>
+        <Link to='/react-colors'>ReactColorPicker</Link>
       </div>
       {showSlider && (
         <div className='slider-container'>

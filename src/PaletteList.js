@@ -16,7 +16,7 @@ const PaletteList = ({ history }) => {
 
   const closeDialog = () => setOpenDeleteDialog(false);
 
-  const goToPalette = id => () => history.push(`/palette/${id}`);
+  const goToPalette = id => () => history.push(`/react-colors/palette/${id}`);
 
   const openDialog = id => e => {
     e.stopPropagation();
@@ -35,14 +35,14 @@ const PaletteList = ({ history }) => {
   }, [palettes]);
 
   return (
-    <div className="PaletteList">
-      <div className="PaletteList-container">
-        <nav className="PaletteList-header">
+    <div className='PaletteList'>
+      <div className='PaletteList-container'>
+        <nav className='PaletteList-header'>
           <h1>React Colors</h1>
-          <Link to="/palette/new">Create Palette</Link>
+          <Link to='/react-colors/palette/new'>Create Palette</Link>
         </nav>
 
-        <div className="PaletteList-palettes-container">
+        <div className='PaletteList-palettes-container'>
           {palettes.map(palette => (
             <MiniPalette
               {...palette}

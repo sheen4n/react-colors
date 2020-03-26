@@ -36,7 +36,7 @@ const ColorBox = ({ name, format, showMore, ...color }) => {
         <button className='copy-button'>Copy</button>
         {showMore && (
           <Link
-            to={`/palette/${color.paletteId}/${color.id}`}
+            to={`/react-colors/palette/${color.paletteId}/${color.id}`}
             onClick={e => e.stopPropagation()}
           >
             <span className={`see-more ${isLightColor && 'dark-text'}`}>

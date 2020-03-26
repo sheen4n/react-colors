@@ -50,7 +50,10 @@ const SingleColorPalette = ({ match }) => {
           />
         ))}
         <div className='go-back ColorBox'>
-          <Link to={`/palette/${paletteId}`} className='back-button'>
+          <Link
+            to={`/react-colors/palette/${paletteId}`}
+            className='back-button'
+          >
             Go Back
           </Link>
         </div>
