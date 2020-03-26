@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import MenuIcon from '@material-ui/icons/Menu';
+import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import IconButton from '@material-ui/core/IconButton';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -49,15 +49,17 @@ const PaletteFormAppBar = ({ children, setDrawerOpen, drawerOpen }) => {
       })}
     >
       <Toolbar className="PaletteFormAppBar-toolbar">
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          edge="start"
-          className={clsx(classes.menuButton, drawerOpen && classes.hide)}
-        >
-          <MenuIcon />
-        </IconButton>
+        {!drawerOpen && (
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            className={clsx(classes.menuButton, drawerOpen && classes.hide)}
+          >
+            <AddToPhotosIcon />
+          </IconButton>
+        )}
         <Typography variant="h6" noWrap>
           Create a Palette
         </Typography>
