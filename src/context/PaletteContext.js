@@ -12,12 +12,17 @@ const paletteReducer = (state, action) => {
   }
 };
 
-const addPalette = dispatch => newPalette => {
-  dispatch({ type: 'add_palette', payload: newPalette });
+const addPalette = dispatch => async newPalette => {
+  await dispatch({ type: 'add_palette', payload: newPalette });
+};
+
+const loadData = () => {
+  const savedPalettes = JSON.parse(window.localStorage.getItem('palettes'));
+  return savedPalettes || seedData;
 };
 
 export const { Context, Provider } = createDataContext(
   paletteReducer,
   { addPalette },
-  seedData
+  loadData()
 );
