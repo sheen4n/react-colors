@@ -19,10 +19,17 @@ function App() {
             path='/palette/:paletteId/:colorId'
             render={SingleColorPalette}
           />
-          <Route exact path='/' render={() => <PaletteList />} />
+          <Route exact path='/home' render={() => <PaletteList />} />
           <Route exact path='/palette/new' render={NewPaletteForm} />
           <Route exact path='/palette/:id' render={Palette} />
-          <Redirect to='/' />
+          <Redirect
+            exact
+            from='/'
+            to='/home'
+            component={() => <PaletteList />}
+          />
+
+          <Redirect to='/home' />
         </Switch>
       </PaletteProvider>
     </NewPaletteFormProvider>
