@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import SingleColorPalette from './SingleColorPalette';
 import PaletteList from './PaletteList';
@@ -22,6 +22,7 @@ function App() {
           <Route exact path='/' render={() => <PaletteList />} />
           <Route exact path='/palette/new' render={NewPaletteForm} />
           <Route exact path='/palette/:id' render={Palette} />
+          <Redirect to='/' />
         </Switch>
       </PaletteProvider>
     </NewPaletteFormProvider>

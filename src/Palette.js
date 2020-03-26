@@ -5,7 +5,7 @@ import generatePalette from './utils/colorHelper';
 
 import './styles/Palette.css';
 import Navbar from './Navbar';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import PaletteFooter from './PaletteFooter';
 
 import { Context } from './context/PaletteContext';
@@ -17,7 +17,7 @@ const Palette = ({ match }) => {
   const [format, setFormat] = useState('hex');
 
   const existingPalette = palettes.find(p => p.id === match.params.id);
-  if (!existingPalette) return <div>Invalid Palette</div>;
+  if (!existingPalette) return <Redirect to='/' />;
 
   const palette = generatePalette(existingPalette);
 
