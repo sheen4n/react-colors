@@ -1,0 +1,15 @@
+.MiniPalette .delete-icon {
+  position: absolute;
+  z-index: 2;
+  right: 10px;
+  top: 10px;
+  opacity: 0;
+}
+
+.MiniPalette:hover .delete-icon {
+  color: white;
+  opacity: 1;
+  transform: scale(1.2);
+  transition: all 0.3s ease-in-out;
+  background-color: red;
+}

@@ -37,8 +37,8 @@ const PaletteMetaForm = ({ hideForm, history }) => {
 
   const showEmojiPicker = () => setStage('emoji');
 
-  const createNewPalette = async emoji => {
-    await addPalette({
+  const createNewPalette = emoji => {
+    addPalette({
       paletteName: newPaletteName,
       id: newPaletteName.toLowerCase().replace(/ /g, '-'),
       emoji: emoji.native,

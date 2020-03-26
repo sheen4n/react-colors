@@ -8,9 +8,14 @@ import './styles/PaletteList.css';
 import { Context } from './context/PaletteContext';
 
 const PaletteList = ({ history }) => {
-  const { state: palettes } = useContext(Context);
+  const { removePalette, state: palettes } = useContext(Context);
 
   const goToPalette = id => () => history.push(`/palette/${id}`);
+
+  const handleDeletePalette = id => e => {
+    e.stopPropagation();
+    removePalette(id);
+  };
 
   useEffect(() => {
     window.localStorage.setItem('palettes', JSON.stringify(palettes));
@@ -30,6 +35,7 @@ const PaletteList = ({ history }) => {
               {...palette}
               goToPalette={goToPalette(palette.id)}
               key={palette.id}
+              removePalette={handleDeletePalette(palette.id)}
             />
           ))}
         </div>
