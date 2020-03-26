@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import PaletteDrawer from './PaletteDrawer';
 import PaletteColorPicker from './PaletteColorPicker';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import PaletteFormContent from './PaletteFormContent';
 import './styles/NewPaletteForm.css';
 
@@ -14,52 +14,17 @@ import { Context as NewPaletteFormContext } from './context/NewPaletteFormContex
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 import DraggableColorList from './DraggableColorList';
 
-const MAX_NEW_COLORS = 20;
-
 const NewPaletteForm = ({ history }) => {
   const { addPalette, state: palettes } = useContext(PaletteContext);
   const {
-    addColorToPalette,
-    changeNewColor,
-    setErrorMessage,
     changeNewPaletteName,
-    changeNewColorName,
     changeColorsSequence,
-    clearColors,
     state: newFormState
   } = useContext(NewPaletteFormContext);
 
-  const {
-    newColors,
-    newColorName,
-    newColor,
-    errorMessage,
-    newPaletteName
-  } = newFormState;
+  const { newColors, newPaletteName } = newFormState;
 
   const [drawerOpen, setDrawerOpen] = useState(false);
-
-  const handleAddNewColor = () => {
-    const newColorObject = { color: newColor, name: newColorName };
-
-    const isNameUnique = newColors
-      .map(c => c.name)
-      .every(n => n.toLowerCase() !== newColorName.toLowerCase());
-    const isColorUnique = newColors
-      .map(c => c.color)
-      .every(c => c !== newColor);
-    if (newColorName.trim() === '') return setErrorMessage('Name is required');
-    if (!isNameUnique) return setErrorMessage('New color name must be unique');
-    if (!isColorUnique) return setErrorMessage('Color already used!');
-
-    addColorToPalette(newColorObject);
-    resetForm();
-  };
-
-  const resetForm = () => {
-    changeNewColorName('');
-    changeNewColor('');
-  };
 
   const createNewPalette = () => {
     const isNameUnique = palettes
@@ -81,52 +46,33 @@ const NewPaletteForm = ({ history }) => {
     changeColorsSequence(oldIndex, newIndex);
   };
 
-  const addRandomColor = () => {
-    const allColors = palettes
-      .map(p => p.colors)
-      .flat()
-      .filter(
-        c =>
-          !newColors.map(nc => nc.color).includes(c.color) &&
-          !newColors.map(nc => nc.name).includes(c.name)
-      );
-    const rand = Math.floor(Math.random() * allColors.length);
-    const randomColor = allColors[rand];
-    addColorToPalette(randomColor);
-  };
-
   return (
-    <div className='NewPaletteForm'>
+    <div className="NewPaletteForm">
       <CssBaseline />
 
       <PaletteFormAppBar setDrawerOpen={setDrawerOpen} drawerOpen={drawerOpen}>
         <ValidatorForm onSubmit={createNewPalette}>
           <TextValidator
-            label='Palette Name'
+            label="Palette Name"
             value={newPaletteName}
             onChange={e => changeNewPaletteName(e.target.value)}
           />
-          <Button variant='contained' color='primary' type='submit'>
+          <Button variant="contained" color="primary" type="submit">
             Save Palette
           </Button>
+          <Link to="/">
+            <Button variant="contained" color="secondary">
+              Go Back
+            </Button>
+          </Link>
         </ValidatorForm>
       </PaletteFormAppBar>
 
       <PaletteDrawer setDrawerOpen={setDrawerOpen} drawerOpen={drawerOpen}>
-        <PaletteColorPicker
-          newColor={newColor}
-          setNewColor={changeNewColor}
-          addNew={handleAddNewColor}
-          newColorName={newColorName}
-          setNewColorName={changeNewColorName}
-          errorMessage={errorMessage}
-          clearColors={clearColors}
-          addRandomColor={addRandomColor}
-          isPaletteFull={newColors.length >= MAX_NEW_COLORS}
-        />
+        <PaletteColorPicker />
       </PaletteDrawer>
       <PaletteFormContent drawerOpen={drawerOpen}>
-        <DraggableColorList axis='xy' onSortEnd={onSortEnd} />
+        <DraggableColorList axis="xy" onSortEnd={onSortEnd} />
       </PaletteFormContent>
     </div>
   );
